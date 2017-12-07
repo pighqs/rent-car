@@ -28,10 +28,12 @@ mongoose.connect(
 var carSchema = mongoose.Schema({
   model: String,
   brand: String,
-  cityLat: String,
-  cityLng: String,
+  city: String,
+  lat: Number,
+  lng: Number,
   seats: Number
 });
+
 
 // models
 var CarModel = mongoose.model("cars", carSchema);
@@ -49,23 +51,28 @@ app.post("/sendtoback", function(req, res) {
     "&key=" +
     keyGoogle;
 
+     
+
   request(geocodeURL, function(error, response, body) {
     var cityInfos = JSON.parse(body);
-    var lat = cityInfos.results[0].geometry.location.lat;
-    var lng = cityInfos.results[0].geometry.location.lng;
+    var latitude = cityInfos.results[0].geometry.location.lat;
+    var longitude = cityInfos.results[0].geometry.location.lng;
+  
+
+
+  var newCar = new CarModel({
+    model: req.body.model,
+    brand: req.body.brand,
+    city: req.body.city,
+    lat: latitude,
+    lng: longitude,
+    seats: req.body.seats,
   });
 
-  //console.log(req.body);
+  console.log(newCar);
 
-  // var newCar = new CarModel({
-  //   model: req.body.model,
-  //   brand: req.body.brand,
+});
 
-  //   cityLat: lat,
-  //   cityLng: lng,
-
-  //   seats: req.body.seats
-  // });
 
   // on insere dans la base de donnees
 //   newCar.save(function(error, car) {
