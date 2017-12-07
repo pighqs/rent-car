@@ -2,6 +2,13 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
+var multer  = require('multer');
+
+// upload MULTER
+var upload = multer({ 
+  dest: './uploads/' 
+});
+
 
 app.set("view engine", "ejs");
 
@@ -38,11 +45,14 @@ var carSchema = mongoose.Schema({
 // models
 var CarModel = mongoose.model("cars", carSchema);
 
+
+
 app.get("/", function(req, res) {
   res.render("index");
 });
 
-app.post("/savecar", function(req, res) {
+app.post("/savecar", upload.array(),function(req, res) {
+  console.log(req.body);
   var city = req.body.city;
   var keyGoogle = "AIzaSyDH5y_hZ25iSR87OMKrt9TFLH1IuO1ULrE";
   var geocodeURL =
@@ -51,14 +61,12 @@ app.post("/savecar", function(req, res) {
     "&key=" +
     keyGoogle;
 
-     
 
   request(geocodeURL, function(error, response, body) {
-    var cityInfos = JSON.parse(body);
-    var latitude = cityInfos.results[0].geometry.location.lat;
-    var longitude = cityInfos.results[0].geometry.location.lng;
+    var cityDatasFromGeocodeAPI = JSON.parse(body);
+    var latitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lat;
+    var longitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lng;
   
-
 
   var newCar = new CarModel({
     model: req.body.model,
