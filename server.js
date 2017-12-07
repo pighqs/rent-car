@@ -69,21 +69,21 @@ app.post("/savecar", function(req, res) {
     seats: req.body.seats,
   });
 
-  console.log(newCar);
+  //console.log(newCar);
 
+ // on insere dans la base de donnees
+    newCar.save(function(error, car) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("save DB ok" + car);
+      }
+      //on redirige sur la home
+      res.redirect("/");
+    });
 });
 
 
-  // on insere dans la base de donnees
-//   newCar.save(function(error, car) {
-//     if (error) {
-//       console.log(error);
-//     } else {
-//       console.log("save DB ok" + car);
-//     }
-//     //on redirige sur la home
-//     res.redirect("/");
-//   });
 });
 
 
