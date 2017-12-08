@@ -88,7 +88,7 @@ app.get("/getmarkers", function(req, res) {
   CarModel.find(function(error, cars) {
     console.log(cars);
   });
-  res.render("index");
+  res.send(cars);
 });
 
 var port = process.env["PORT"] || 8080;
