@@ -87,8 +87,8 @@ app.post("/savecar", upload.array(), function(req, res) {
 app.get("/findcars", function(req, res) {
   CarModel.find(function(error, cars) {
     console.log(cars);
+    res.json(cars);
   });
-  res.send(cars);
 });
 
 var port = process.env["PORT"] || 8080;
