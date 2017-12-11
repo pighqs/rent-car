@@ -8,26 +8,6 @@ var fileUpload = require('express-fileupload');
 // default options
 app.use(fileUpload());
 
-// on rend uploads public, le client peut faire une requete directement dans ce dossier
-// herokuURL/fileName.jpeg
-//app.use(express.static('uploads'));
-
-// multer permet de lire le multipath form data (nok avec bodyParser)
-//var multer = require("multer");
-
-// var storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, './uploads')
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, 'image.jpg')
-//   }
-// })
-
-// upload MULTER
-// var upload = multer({
-//   storage: storage
-// });
 
 app.set("view engine", "ejs");
 
