@@ -4,6 +4,10 @@ var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
 
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+
 var fileUpload = require('express-fileupload');
 // default options
 app.use(fileUpload());
@@ -95,26 +99,18 @@ app.get("/findcars", function(req, res) {
   });
 });
 
-// app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
-//   console.log(req.file);// req.file is the `avatar` file
-//   res.send("ok");
-// })
+app.post("/sendpicture", function(req, res, next) {
+  console.log('nouvelle photo')
+  console.log(req.files.imgCar);
 
-// app.post('/sendpicture', function(req, res) {
-//   if (!req.files)
-//     return res.status(400).send('No files were uploaded.');
+  var picture = req.files.imgCar;
+  picture.mv('./public/img/test.jpg', function(err) {
+  if (err)
+    return res.status(500).send(err);
+  res.json('File uploaded!');
 
-//   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-//   let imageVoiture = req.files.imgCar;
-
-//   // Use the mv() method to place the file somewhere on your server
-//   imageVoiture.mv('./public/img/'+req.body.name+'.jpg', function(err) {
-//     if (err)
-//       return res.status(500).send(err);
-
-//     res.send('File uploaded!');
-//   });
-// });
+});
+});
 
 var port = process.env["PORT"] || 8080;
 
