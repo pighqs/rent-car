@@ -7,6 +7,7 @@ var request = require("request");
 var multer  = require('multer')
 var upload = multer({ dest: 'uploads/' })
 
+app.use(express.static("public"));
 
 var fileUpload = require('express-fileupload');
 // default options
