@@ -96,8 +96,7 @@ app.get("/findcars", function(req, res) {
 });
 
 app.post("/sendpicture", function(req, res, next) {
-  console.log("nouvelle photo");
-  console.log(req.files.imgcar.name);
+  console.log("nouvelle photo :" + req.files.imgcar.name);
 
   var picture = req.files.imgcar;
   picture.mv("./public/imgs"+ req.files.imgcar.name +".jpg", function(err) {
