@@ -1,7 +1,11 @@
 var express = require("express");
 var app = express();
+
 var bodyParser = require("body-parser");
 var request = require("request");
+var fileUpload = require('express-fileupload');
+// default options
+app.use(fileUpload());
 
 
 app.use(express.static('public'));
@@ -112,10 +116,15 @@ app.get("/findcars", function(req, res) {
   });
 });
 
-app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
-  console.log(req.file);// req.file is the `avatar` file
-  res.send("ok");
-})
+// app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
+//   console.log(req.file);// req.file is the `avatar` file
+//   res.send("ok");
+// })
+
+app.post('/upload', function(req, res) {
+  console.log(req.files.car_picture); // the uploaded file object
+  console.log(req.files);
+});
 
 var port = process.env["PORT"] || 8080;
 
