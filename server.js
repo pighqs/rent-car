@@ -99,7 +99,7 @@ app.post("/sendpicture", function(req, res, next) {
   console.log("nouvelle photo :" + req.files.imgcar.name);
 
   var picture = req.files.imgcar;
-  picture.mv("./public/assets"+ req.files.imgcar.name +".jpg", function(err) {
+  picture.mv("./public/"+ req.files.imgcar.name +".jpg", function(err) {
     if (err) return res.status(500).send("encore une putain d'erreur 500!");
     res.json("File uploaded!");
   });
