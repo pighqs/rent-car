@@ -2,6 +2,8 @@ var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
+
+// multer permet de lire le multipath form data (nok avec bodyParser)
 var multer = require("multer");
 
 // upload MULTER
@@ -90,6 +92,11 @@ app.get("/findcars", function(req, res) {
     res.json(cars);
   });
 });
+
+app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
+  console.log(req.file);// req.file is the `avatar` file
+  console.log(req.body);// req.body will hold the text fields, if there were any
+})
 
 var port = process.env["PORT"] || 8080;
 
