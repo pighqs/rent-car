@@ -65,6 +65,7 @@ app.post("/savecar", upload.array(), function(req, res) {
     var cityDatasFromGeocodeAPI = JSON.parse(body);
     var latitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lat;
     var longitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lng;
+    
 
     var newCar = new CarModel({
       model: req.body.model,
@@ -81,6 +82,7 @@ app.post("/savecar", upload.array(), function(req, res) {
         console.log(error);
       } else {
         console.log("save DB ok" + car);
+        res.json({id: cars._id});
       }
       //on redirige sur la home
       res.redirect("/");
