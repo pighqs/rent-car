@@ -81,15 +81,15 @@ app.post("/savecar", function(req, res) {
         console.log("save DB ok" + car);
         res.json(car);
       }
-      //on redirige sur la home
-      //res.redirect("/");
     });
   });
 });
 
 app.get("/findcars", function(req, res) {
   CarModel.find(function(error, cars) {
-    //console.log(cars);
+    if(error) {
+      console.log(error);
+    }
     res.json(cars);
   });
 });
