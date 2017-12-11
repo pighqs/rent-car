@@ -100,21 +100,21 @@ app.get("/findcars", function(req, res) {
 //   res.send("ok");
 // })
 
-app.post('/sendpicture', function(req, res) {
-  if (!req.files)
-    return res.status(400).send('No files were uploaded.');
+// app.post('/sendpicture', function(req, res) {
+//   if (!req.files)
+//     return res.status(400).send('No files were uploaded.');
 
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let imageVoiture = req.files.imgCar;
+//   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+//   let imageVoiture = req.files.imgCar;
 
-  // Use the mv() method to place the file somewhere on your server
-  imageVoiture.mv('./public/img/'+req.body.name+'.jpg', function(err) {
-    if (err)
-      return res.status(500).send(err);
+//   // Use the mv() method to place the file somewhere on your server
+//   imageVoiture.mv('./public/img/'+req.body.name+'.jpg', function(err) {
+//     if (err)
+//       return res.status(500).send(err);
 
-    res.send('File uploaded!');
-  });
-});
+//     res.send('File uploaded!');
+//   });
+// });
 
 var port = process.env["PORT"] || 8080;
 
