@@ -59,6 +59,7 @@ app.post("/savecar", function(req, res) {
     keyGoogle;
 
   request(geocodeURL, function(error, response, body) {
+    console.log(body);
     var cityDatasFromGeocodeAPI = JSON.parse(body);
     var latitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lat;
     var longitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lng;
