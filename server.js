@@ -82,10 +82,10 @@ app.post("/savecar", upload.array(), function(req, res) {
         console.log(error);
       } else {
         console.log("save DB ok" + car);
-        res.json({id: cars._id});
+        res.send({id: cars._id});
       }
       //on redirige sur la home
-      res.redirect("/");
+      //res.redirect("/");
     });
   });
 });
