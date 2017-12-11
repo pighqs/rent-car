@@ -5,6 +5,7 @@ var bodyParser = require("body-parser");
 var request = require("request");
 
 
+
 app.use(express.static("public"));
 
 var fileUpload = require("express-fileupload");
@@ -59,7 +60,6 @@ app.post("/savecar", function(req, res) {
     keyGoogle;
 
   request(geocodeURL, function(error, response, body) {
-    console.log(body);
     var cityDatasFromGeocodeAPI = JSON.parse(body);
     var latitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lat;
     var longitude = cityDatasFromGeocodeAPI.results[0].geometry.location.lng;
@@ -82,21 +82,21 @@ app.post("/savecar", function(req, res) {
         console.log("save DB ok" + car);
         res.json(car);
       }
+      //on redirige sur la home
+      //res.redirect("/");
     });
   });
 });
 
 app.get("/findcars", function(req, res) {
   CarModel.find(function(error, cars) {
-    if(error) {
-      console.log(error);
-    }
+    console.log(cars);
     res.json(cars);
   });
 });
 
 app.post("/sendpicture", function(req, res, next) {
-  //console.log("nouvelle photo :" + req.files.imgcar.name);
+  console.log("nouvelle photo :" + req.files.imgcar.name);
 
   var picture = req.files.imgcar;
   picture.mv("./public/"+ req.files.imgcar.name +".jpg", function(err) {
