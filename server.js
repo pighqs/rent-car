@@ -105,7 +105,7 @@ app.post("/sendpicture", function(req, res, next) {
   console.log(req.files.imgCar);
 
   var picture = req.files.imgCar;
-  picture.mv('./public/img/test.jpg', function(err) {
+  picture.mv('./public/img.jpg', function(err) {
   if (err)
     return res.status(500).send(err);
   res.json('File uploaded!');
