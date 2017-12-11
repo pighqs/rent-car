@@ -94,6 +94,7 @@ app.get("/findcars", function(req, res) {
 });
 
 app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
+  console.log("in sendpicture");
   console.log(req.file);// req.file is the `avatar` file
   console.log(req.body);// req.body will hold the text fields, if there were any
   res.redirect("/");
