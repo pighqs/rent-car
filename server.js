@@ -97,10 +97,10 @@ app.get("/findcars", function(req, res) {
 
 app.post("/sendpicture", function(req, res, next) {
   console.log("nouvelle photo");
-  console.log(req.files.imgcar);
+  console.log(req.files.imgcar.name);
 
   var picture = req.files.imgcar;
-  picture.mv("./public/photo.jpg", function(err) {
+  picture.mv("./public/"+req.files.imgcar.name".jpg", function(err) {
     if (err) return res.status(500).send("encore une putain d'erreur 500!");
     res.json("File uploaded!");
   });
