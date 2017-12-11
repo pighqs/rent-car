@@ -5,10 +5,18 @@ var request = require("request");
 
 // multer permet de lire le multipath form data (nok avec bodyParser)
 var multer = require("multer");
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '.uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '.jpg')
+  }
+})
 
 // upload MULTER
 var upload = multer({
-  dest: "./uploads/"
+  storage: storage
 });
 
 app.set("view engine", "ejs");
@@ -21,12 +29,6 @@ app.use(express.static('uploads'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 
 
