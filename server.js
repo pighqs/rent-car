@@ -4,8 +4,7 @@ var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
 
-var multer = require("multer");
-var upload = multer({ dest: "uploads/" });
+
 
 app.use(express.static("public"));
 
@@ -51,8 +50,7 @@ app.get("/", function(req, res) {
   res.render("index");
 });
 
-app.post("/savecar", upload.array(), function(req, res) {
-  console.log(req.body);
+app.post("/savecar", function(req, res) {
   var city = req.body.city;
   var keyGoogle = "AIzaSyDH5y_hZ25iSR87OMKrt9TFLH1IuO1ULrE";
   var geocodeURL =
