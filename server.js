@@ -12,9 +12,23 @@ var upload = multer({
 });
 
 app.set("view engine", "ejs");
+app.use(express.static('public'));
+// on rend uploads public, le client peut faire une requete directement dans ce dossier
+// herokuURL/fileName.jpeg
+app.use(express.static('uploads'));
+
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 
 //// CONNECTION DB MLAB
 var mongoose = require("mongoose");
@@ -96,8 +110,7 @@ app.get("/findcars", function(req, res) {
 app.post('/sendpicture', upload.single('imgCar'), function (req, res, next) {
   console.log("in sendpicture");
   console.log(req.file);// req.file is the `avatar` file
-  console.log(req.body);// req.body will hold the text fields, if there were any
-  res.redirect("/");
+  res.send("ok");
 })
 
 var port = process.env["PORT"] || 8080;
