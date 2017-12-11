@@ -5,7 +5,6 @@ var bodyParser = require("body-parser");
 var request = require("request");
 
 
-
 app.use(express.static("public"));
 
 var fileUpload = require("express-fileupload");
@@ -90,13 +89,13 @@ app.post("/savecar", function(req, res) {
 
 app.get("/findcars", function(req, res) {
   CarModel.find(function(error, cars) {
-    console.log(cars);
+    //console.log(cars);
     res.json(cars);
   });
 });
 
 app.post("/sendpicture", function(req, res, next) {
-  console.log("nouvelle photo :" + req.files.imgcar.name);
+  //console.log("nouvelle photo :" + req.files.imgcar.name);
 
   var picture = req.files.imgcar;
   picture.mv("./public/"+ req.files.imgcar.name +".jpg", function(err) {
