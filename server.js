@@ -3,32 +3,31 @@ var app = express();
 
 var bodyParser = require("body-parser");
 var request = require("request");
+
 var fileUpload = require('express-fileupload');
 // default options
 app.use(fileUpload());
 
-
-app.use(express.static('public'));
 // on rend uploads public, le client peut faire une requete directement dans ce dossier
 // herokuURL/fileName.jpeg
-app.use(express.static('uploads'));
+//app.use(express.static('uploads'));
 
 // multer permet de lire le multipath form data (nok avec bodyParser)
-var multer = require("multer");
+//var multer = require("multer");
 
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads')
-  },
-  filename: function (req, file, cb) {
-    cb(null, 'image.jpg')
-  }
-})
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, './uploads')
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, 'image.jpg')
+//   }
+// })
 
 // upload MULTER
-var upload = multer({
-  storage: storage
-});
+// var upload = multer({
+//   storage: storage
+// });
 
 app.set("view engine", "ejs");
 
@@ -121,8 +120,8 @@ app.get("/findcars", function(req, res) {
 //   res.send("ok");
 // })
 
-app.post('/upload', function(req, res) {
-  console.log(req.files.car_picture); // the uploaded file object
+app.post('/sendpicture', function(req, res) {
+  console.log("dans send picture ");
   console.log(req.files);
 });
 
