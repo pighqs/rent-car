@@ -4,24 +4,19 @@ var app = express();
 var bodyParser = require("body-parser");
 var request = require("request");
 
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var multer = require("multer");
+var upload = multer({ dest: "uploads/" });
 
 app.use(express.static("public"));
 
-var fileUpload = require('express-fileupload');
+var fileUpload = require("express-fileupload");
 // default options
 app.use(fileUpload());
 
-
 app.set("view engine", "ejs");
-
-
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-
 
 //// CONNECTION DB MLAB
 var mongoose = require("mongoose");
@@ -101,16 +96,14 @@ app.get("/findcars", function(req, res) {
 });
 
 app.post("/sendpicture", function(req, res, next) {
-  console.log('nouvelle photo')
+  console.log("nouvelle photo");
   console.log(req.files.imgCar);
 
   var picture = req.files.imgCar;
-  picture.mv('./public/img.jpg', function(err) {
-  if (err)
-    return res.status(500).send(err);
-  res.json('File uploaded!');
-
-});
+  picture.mv("./public/img.jpg", function(err) {
+    if (err) return res.status(500).send(err);
+    res.json("File uploaded!");
+  });
 });
 
 var port = process.env["PORT"] || 8080;
